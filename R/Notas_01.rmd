@@ -1,0 +1,105 @@
+---
+title: "**Notas 1**"
+author: "Ana Sofia Escobedo Muñoz"
+date: "23/02/21"
+output: 
+  html_document:
+    df_print: paged
+    code_folding: show
+    self_contained: yes
+    theme: darkly
+    highlight: breezedark
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+# <span style="color:gold"> Introduccion a R, RStudio y Bioconductor </span>
+
+
+## <span style="color:darkorange"> R </span>
+
+R nació como una reimplementación de software libre del lenguaje S, adicionado con soporte para ámbito estático. Se trata de uno de los lenguajes de programación más utilizados en investigación científica, siendo además muy popular en los campos de aprendizaje automático (machine learning), minería de datos, investigación biomédica, bioinformática y matemáticas financieras. A esto contribuye la posibilidad de cargar diferentes bibliotecas o paquetes con funcionalidades de cálculo y graficación. (Wikipedia, 2021)
+
+Existen multiples paginas en donde conseguir ayuda sobre cualquier cosa relacionada con R
+
+### <span style="color:palevioletred"> Ligas utiles </span>
+
+#### Libros bonitos 
+
+* https://cran.r-project.org/doc/contrib/rdebuts_es.pdf
+* https://cran.r-project.org/doc/contrib/Santana_El_arte_de_programar_en_R.pdf
+* https://bookdown.org/yihui/rmarkdown/
+* https://cran.r-project.org/doc/contrib/Verzani-SimpleR.pdf
+* https://www.stat.auckland.ac.nz/~paul/RGraphics/chapter1.pdf
+* https://www.datavis.ca/courses/RGraphics/R-Graphics1.pdf
+* https://adv-r.hadley.nz/
+* https://joeystanley.com/downloads/171110-tidyverse_handout.pdf
+
+#### Para plots
+
+* https://www.nceas.ucsb.edu/sites/default/files/2020-04/colorPaletteCheatsheet.pdf
+* https://datacarpentry.org/R-ecology-lesson/04-visualization-ggplot2.html
+* http://www.stat.columbia.edu/~tzheng/files/Rcolor.pdf
+* https://www.r-bloggers.com/2020/08/graphics-in-r-with-ggplot2/
+* http://r-statistics.co/ggplot2-Tutorial-With-R.html
+* http://publish.illinois.edu/johnrgallagher/files/2015/10/BaseGraphicsCheatsheet.pdf
+
+
+## <span style="color:darkorange"> RStudio </span>
+
+Es un entorno de desarrollo integrado para el lenguaje de programación R, dedicado a la computación estadística y gráficos. Incluye una consola, editor de sintaxis que apoya la ejecución de código, así como herramientas para el trazado, la depuración y la gestión del espacio de trabajo. (Wikipedia, 2021)
+
+
+### <span style="color:palevioletred"> Ligas relacionadas </span>
+
+* https://rstudio.cloud/
+* https://rstudio.com/
+* https://data-flair.training/blogs/rstudio-tutorial/
+
+## <span style="color:darkorange"> Bioconductor </span>
+
+Bioconductor se basa principalmente en el lenguaje de programación estadístico R, pero contiene contribuciones en otros lenguajes de programación. Tiene dos lanzamientos cada año que siguen a los lanzamientos semestrales de R. En cualquier momento hay una versión de lanzamiento, que corresponde a la versión lanzada de R, y una versión de desarrollo, que corresponde a la versión de desarrollo de R. encontrar la versión de lanzamiento adecuada para sus necesidades. Además, hay muchos paquetes de anotaciones genómicas disponibles que están principalmente, pero no exclusivamente, orientados a diferentes tipos de microarrays.
+
+Si bien se continúan desarrollando métodos computacionales para interpretar datos biológicos, el proyecto Bioconductor es un repositorio de software de código abierto que alberga una amplia gama de herramientas estadísticas desarrolladas en el entorno de programación R. Utilizando una amplia gama de características estadísticas y gráficas en R, se han desarrollado muchos paquetes de bioconductores para satisfacer diversas necesidades de análisis de datos. El uso de estos paquetes proporciona una comprensión básica del lenguaje de programación / comando R. Como resultado, la mayoría de los biólogos utilizan los paquetes R y Bioconductor, que tienen una sólida formación informática, y se beneficiarán significativamente de su capacidad para analizar conjuntos de datos. Todos estos resultados brindan a los biólogos un fácil acceso al análisis de datos genómicos sin requerir experiencia en programación.(Wikipedia, 2021)
+
+### <span style="color:palevioletred"> Ejercicio grupal </span>
+
+Entre varias personas revisamos
+
+* CellaRepertorium (https://bioconductor.org/packages/release/bioc/html/CellaRepertorium.html)
+* Velociraptor (https://bioconductor.org/packages/release/bioc/html/velociraptor.html)
+* Nebulososa (https://bioconductor.org/packages/release/bioc/html/Nebulosa.html)
+
+El nivel de respuesta es lo mas varia entre cada paquete, refiriendose a esto cantidad issues contestados y terminados
+Tanto CellaRepertorium como Velociraptor tuvieron buenas estadisticas en el rubro build, a diferencia de Nebulosa. 
+A continuacion, una tabla resumiendo las caracteristicas mas importantes de los paquetes analizados junto:
+
+```{R Tabla loca de librerias locas, comment='', echo=FALSE}
+
+pkgs <- c('CellaRepertorium', 'Velociraptor', 'Nebulososa')
+build <- c('Ok', 'Error', 'Error')
+posts <- c('Unknown', '0', '0')
+platforms <- c('All', 'Some', 'All')
+description <- c('Methods to cluster and analyze high-throughput single cell immune cell repertoires, especially from the 10X Genomics VDJ solution. Contains an R interface to CD-HIT (Li and Godzik 2006). Methods to visualize and analyze paired heavy-light chain data. Tests for specific expansion, as well as omnibus oligoclonality under hypergeometric models.',
+                 'This package provides Bioconductor-friendly wrappers for RNA velocity calculations in single-cell RNA-seq data. We use the basilisk package to manage Conda environments, and the zellkonverter package to convert data structures between SingleCellExperiment (R) and AnnData (Python). The information produced by the velocity methods is stored in the various components of the SingleCellExperiment class.',
+                 'This package provides a enhanced visualization of single-cell data based on gene-weighted density estimation. Nebulosa recovers the signal from dropped-out features and allows the inspection of the joint expression from multiple features (e.g. genes). Seurat and SingleCellExperiment objects can be used within Nebulosa.')
+biocViews <- c('Clustering, ImmunoOncology, RNASeq, SingleCell, Software, TargetedResequencing, Technology, Transcriptomics',
+               'Coverage, GeneExpression, Sequencing, SingleCell, Software',
+               'DimensionReduction, GeneExpression, SingleCell, Software, Visualization')
+url <- c('https://github.com/amcdavid/CellaRepertorium',
+         'https://github.com/kevinrue/velociraptor',
+         'https://github.com/powellgenomicslab/Nebulosa')
+buggResponse <- c('Yes/Some of the cases', 'Yes/Some of the cases', 'Yes/Some of the cases')
+manualRef <- c('https://bioconductor.org/packages/release/bioc/manuals/CellaRepertorium/man/CellaRepertorium.pdf',
+               'https://bioconductor.org/packages/release/bioc/manuals/velociraptor/man/velociraptor.pdf',
+               'https://bioconductor.org/packages/release/bioc/manuals/Nebulosa/man/Nebulosa.pdf')
+
+
+df <- data.frame(Paquete = pkgs, Build= build, NumPosts = posts, Platforms = platforms, Description = description, Categories= biocViews, Links = url, BuggResponse = buggResponse, ManualReference= manualRef)
+df
+```
+
+
+
+
+

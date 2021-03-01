@@ -1,0 +1,77 @@
+---
+title: "**Notas 2**"
+author: "Ana Sofia Escobedo Muñoz"
+date: "24/02/21"
+output: 
+  html_document:
+    df_print: paged
+    code_folding: show
+    self_contained: yes
+    theme: darkly
+    highlight: breezedark
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+# <span style="color:gold"> Objetos de Bioconductor </span>
+
+
+## <span style="color:darkorange"> SummarizedExperiment </span>
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/SummarizedExperiment.jpg)
+
+### <span style="color:palevioletred"> Ejercicio en Binas </span>
+
+```{R Decir que es eso, comment= '', eval= FALSE}
+## Comando 1
+# Imprime los primeros dos genes del objeto a lo largo de todas la muestras
+rse[1:2, ]
+## Comando 2
+# Imprimirá todos los genes en las muestras A, D Y F
+rse[, c("A", "D", "F")]
+```
+
+
+### <span style="color:palevioletred"> Ejercicio en grupos </span>
+
+```{R Corrida, comment= '', message= 'hide', results= 'hide'}
+suppressPackageStartupMessages(library("SummarizedExperiment"))
+sce_layer <- spatialLIBD::fetch_data("sce_layer")
+
+```
+
+* Descarga un PDF que reproduzca la imagen del lado derecho de la siguiente diapositiva. Incluye ese PDF en tu repositorio de notas del curso.
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/pcaUwU.png)
+
+* Explora en con un _heatmap_ la expresión de los genes `MOBP`, `MBP` y `PCP4`. Si hacemos un _clustering_ (agrupamos los genes), ¿cúales genes se parecen más?
+```
+ENSG00000168314
+ENSG00000183036
+ENSG00000197971
+```
+
+
+```{R Ejercicio A, comment= ''}
+rowRanges(sce_layer[c('ENSG00000168314', 'ENSG00000183036', 'ENSG00000197971'),])$gene_search
+cosito <- sce_layer[c('ENSG00000168314', 'ENSG00000183036', 'ENSG00000197971'),]
+#iSEE::iSEE(cosito)
+```
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/heatmapClusteringSCE.png)
+Se parecen mas los primeros dos en el heatmap 
+
+* ¿En qué capas se expresan más los genes _MOBP_ y _MBP_?
+
+
+```{R Ejercicio B, comment= ''}
+#iSEE::iSEE(cosito)
+```
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/MOBPvsLayers.png)
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/MBPvsLayers.png)
+
+### <span style="color:palevioletred"> Otro ejercicio en parejas </span>
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/plotRNAseq_iSEE-sraAttribute.png)

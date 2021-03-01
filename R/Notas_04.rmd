@@ -1,0 +1,88 @@
+---
+title: "**Notas 4**"
+author: "Ana Sofia Escobedo Muñoz"
+date: "27/02/21"
+output: 
+  html_document:
+    df_print: paged
+    code_folding: show
+    self_contained: yes
+    theme: darkly
+    highlight: breezedark
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+# <span style="color:gold"> Revision y spatialLIBD </span>
+
+## <span style="color:darkorange"> Revision de temas vistos </span>
+
+* ¿Debemos explorar las relaciones entre nuestras variables con información de nuestras muestras previo a hacer un análisis de expresión diferencial?
+
+Si, es uno de los pasos mas importantes para establecer un modelo estadistico que será la base del analisis de ED
+
+* ¿Por qué usamos el paquete edgeR?
+
+Para normalizar los datos, eliminando el composition bias. 
+
+* ¿Por qué es importante el argumento sort.by en topTable()?
+
+Indicar el orden de la salida de genes (si sort.by= 'none', se mantiene el orden original)
+
+* ¿Por qué es importante el argumento coef en topTable()?
+
+Indica cual elemento del modelo será considerado mas en cuenta para la ED
+
+### <span style="color:palevioletred"> Ejercicio en grupos </span>
+
+```{R inicial, comment= ''}
+speaqeasy_data <- file.path(tempdir(), "rse_speaqeasy.RData")
+download.file("https://github.com/LieberInstitute/SPEAQeasy-example/blob/master/rse_speaqeasy.RData?raw=true", speaqeasy_data, mode = "wb")
+suppressPackageStartupMessages(library("SummarizedExperiment"))
+load(speaqeasy_data, verbose = TRUE)
+rse_gene
+```
+
+* ¿Hay diferencias en totalAssignedGene o mitoRate entre los grupos de diagnosis (PrimaryDx)?
+
+```{R Ejercicio A , comment= ''}
+cosito <- data.frame(rse_gene$totalAssignedGene, rse_gene$mitoRate, rse_gene$PrimaryDx)
+control <- cosito[cosito$rse_gene.PrimaryDx == "Control", ]
+bipolar <- cosito[cosito$rse_gene.PrimaryDx == "Bipolar",]
+summary(control$rse_gene.totalAssignedGene)
+summary(bipolar$rse_gene.totalAssignedGene)
+summary(control$rse_gene.totalAssignedGene)
+summary(bipolar$rse_gene.totalAssignedGene)
+```
+
+* Grafica la expresión de SNAP25 para cada grupo de diagnosis.
+
+```{R Ejercicio B, comment= ''}
+genePos <- match('SNAP25',rowRanges(rse_gene)$Symbol)
+cuentas <- as.vector(assay(rse_gene[genePos,], "counts"))
+cositoCuen <- cbind(cosito, cuentas)
+bipolarCuen <- cositoCuen[cositoCuen$rse_gene.PrimaryDx == "Bipolar",]
+controlCuen <- cositoCuen[cositoCuen$rse_gene.PrimaryDx == "Control", ]
+
+boxplot(x = cbind(controlCuen$cuentas,bipolarCuen$cuentas), names= c('Control', 'Bipolar'))
+```
+
+
+* Sugiere un modelo estadistico que podríamos usar en una análisis de expresión diferencial. Verifica que si sea un modelo full rank. ¿Cúal sería el o los coeficientes de interés?
+
+```{R Ejercicio C, comment= ''}
+dfCdmx <- as.data.frame(cbind(as.vector(rse_gene$BrainRegion),as.vector(rse_gene$PrimaryDx)))
+
+names(dfCdmx) <- c('BrainRegion','PrimaryDx')
+
+vd <- ExploreModelMatrix::VisualizeDesign(
+    sampleData = dfCdmx,
+    designFormula = ~ BrainRegion + PrimaryDx,
+    textSizeFitted = 4
+)
+
+cowplot::plot_grid(plotlist = vd$plotlist)
+```
+
+
+
