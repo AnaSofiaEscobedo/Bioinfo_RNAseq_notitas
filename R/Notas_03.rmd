@@ -1,0 +1,56 @@
+---
+title: "**Notas 3**"
+author: "Ana Sofia Escobedo Muñoz"
+date: "25/02/21"
+output: 
+  html_document:
+    df_print: paged
+    code_folding: show
+    self_contained: yes
+    theme: darkly
+    highlight: breezedark
+    toc: yes
+    toc_depth: 3
+    toc_float: yes
+---
+# <span style="color:gold"> Modelos estadisticos </span>
+
+En estadística, la regresión lineal o ajuste lineal es un modelo matemático usado para aproximar la relación de dependencia entre una variable dependiente Y  y  m variables independientes X.
+
+* https://academic.uprm.edu/eacuna/miniman9sl.pdf
+
+## <span style="color:darkorange"> ExploreModelMatrix </span>
+
+![](/home/aescobed/Bioinfo_RNAseq_notitas/Ejemplo2Modelling.png)
+
+### <span style="color:palevioletred"> Ejercicio </span>
+
+
+* Interpreta ResponseResistant.Treatmentpre del ejercicio 2. Puede ser útil tomar un screenshot (captura de pantalla) y anotarla con líneas de colores. Si haces eso, puedes incluir la imagen en tus notas.
+
+Aquel grupo con la categoria opuesta la encontrada en Intersect, en este caso son una de las variables secundarias
+
+* ¿Por qué es clave el 0 al inicio de la fórmula en el ejercicio 3?
+
+Indicar ausencia de elemento Y
+
+## <span style="color:darkorange"> Normalizacion de datos  </span>
+
+En este curso se usa edgeR (https://genomebiology.biomedcentral.com/articles/10.1186/gb-2010-11-3-r25#Sec2), pero existen otros metodos de normalizacion
+
+* https://www.lifewire.com/database-normalization-basics-1019735
+* https://bmbolstad.com/misc/normalize/bolstad_norm_paper.pdf
+
+## <span style="color:darkorange"> Expresion diferencial  </span>
+
+Sumamente importante revisar las relaciones entre variables, tambien verificar bien la seleccion del coeficiente volviendo a analizar la naturaleza del experimento que produjo los datos. 
+
+## <span style="color:darkorange"> Visualizando genes DE </span>
+
+### <span style="color:palevioletred"> Otro ejercicio </span>
+
+* Agreguen los nombres de los genes a nuestro pheatmap
+
+```{R otro coso, comment= '', eval= FALSE}
+rowRanges(rse_gene_SRP045638)$gene_name[match(rownames(exprs_heatmap), rowRanges(rse_gene_SRP045638)$gene_id)]
+```
